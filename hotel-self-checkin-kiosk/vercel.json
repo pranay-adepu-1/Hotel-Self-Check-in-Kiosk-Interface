@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "public": true,
-  "buildCommand": "npm install",
-  "functions": {
-    "api/index.js": {
-      "memory": 1024,
-      "maxDuration": 60
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
     }
-  },
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/((?!public/).*)", "destination": "/public/index.html" }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
   ]
 }
