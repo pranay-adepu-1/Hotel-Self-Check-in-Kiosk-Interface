@@ -4,8 +4,11 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Determine the correct directory for public files
+const publicDir = path.join(__dirname, "public");
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(publicDir));
 
 let guests = [];
 
@@ -25,7 +28,7 @@ function addHistory(guest, message) {
 }
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 app.get("/api/health", (_req, res) => {
