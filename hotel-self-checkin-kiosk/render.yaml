@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: hotel-self-checkin-kiosk
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start

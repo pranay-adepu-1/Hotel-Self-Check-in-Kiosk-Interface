@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Self Check-in Kiosk</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Sri Nirvana Plaza</p>
+        <h1>Hotel Self Check-in Kiosk</h1>
+      </div>
+      <nav class="tabs" aria-label="Main views">
+        <button class="tab active" data-view="guest">Guest</button>
+        <button class="tab" data-view="dashboard">Front Desk</button>
+        <button class="tab" data-view="report">Reports</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="guest" class="view active">
+        <div class="panel hero-panel">
+          <div>
+            <p class="eyebrow">Fast arrival flow</p>
+            <h2>Register before arrival, verify details, and complete check-in.</h2>
+          </div>
+          <form id="lookupForm" class="lookup">
+            <label for="lookup">Find booking</label>
+            <div class="inline-control">
+              <input id="lookup" name="lookup" placeholder="Booking ID, phone, or email" />
+              <button type="submit">Lookup</button>
+            </div>
+            <p id="lookupMessage" class="message"></p>
+          </form>
+        </div>
+
+        <div class="grid two">
+          <form id="registerForm" class="panel form-panel">
+            <h3>Guest Pre-registration</h3>
+            <div class="field-grid">
+              <label>Name <input name="name" required placeholder="Guest full name" /></label>
+              <label>Email <input name="email" required type="email" placeholder="guest@email.com" /></label>
+              <label>Phone <input name="phone" required placeholder="10-digit phone" /></label>
+              <label>Room Type
+                <select name="roomType" required>
+                  <option value="">Select room</option>
+                  <option>Standard Twin</option>
+                  <option>Deluxe King</option>
+                  <option>Executive Suite</option>
+                  <option>Family Room</option>
+                </select>
+              </label>
+              <label>Arrival <input name="arrival" required type="date" /></label>
+              <label>Departure <input name="departure" required type="date" /></label>
+              <label>ID Type
+                <select name="idType" required>
+                  <option value="">Select ID</option>
+                  <option>Aadhaar</option>
+                  <option>Passport</option>
+                  <option>Driving License</option>
+                  <option>Voter ID</option>
+                </select>
+              </label>
+              <label>ID Last 4 Digits <input name="idLast4" required maxlength="4" pattern="[0-9]{4}" placeholder="1234" /></label>
+            </div>
+            <label>Special Requests <textarea name="requests" rows="3" placeholder="Arrival time, food preference, pickup, accessibility"></textarea></label>
+            <button type="submit">Submit Registration</button>
+            <p id="registerMessage" class="message"></p>
+          </form>
+
+          <article id="guestCard" class="panel detail-panel empty">
+            <h3>Booking Details</h3>
+            <p>Search or submit a registration to see booking and check-in details.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="dashboard" class="view">
+        <div class="toolbar">
+          <div>
+            <p class="eyebrow">Front desk verification</p>
+            <h2>Dashboard</h2>
+          </div>
+          <div class="filters">
+            <input id="searchGuests" placeholder="Search guests" />
+            <select id="statusFilter">
+              <option>All</option>
+              <option>Pending Verification</option>
+              <option>Verified</option>
+              <option>Checked In</option>
+              <option>Issue</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats" id="stats"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Booking</th>
+                <th>Guest</th>
+                <th>Stay</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="guestRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="report" class="view">
+        <div class="panel report-panel">
+          <div>
+            <p class="eyebrow">Admin reports</p>
+            <h2>Daily Operations Summary</h2>
+          </div>
+          <div id="reportSummary" class="report-summary"></div>
+          <a class="button-link" href="/api/report.csv">Download CSV</a>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="editDialog">
+      <form method="dialog" id="statusForm" class="modal">
+        <h3>Update Guest</h3>
+        <input type="hidden" name="id" />
+        <label>Status
+          <select name="status">
+            <option>Pending Verification</option>
+            <option>Verified</option>
+            <option>Checked In</option>
+            <option>Issue</option>
+          </select>
+        </label>
+        <label>Room Number <input name="roomNumber" placeholder="402" /></label>
+        <label>Notes <textarea name="notes" rows="3"></textarea></label>
+        <div class="modal-actions">
+          <button type="button" id="closeDialog" class="secondary">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

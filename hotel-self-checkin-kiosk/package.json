@@ -1,0 +1,12 @@
+{
+  "name": "hotel-self-checkin-kiosk",
+  "version": "1.0.0",
+  "description": "Hotel Self Check-in Kiosk Interface prototype",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
