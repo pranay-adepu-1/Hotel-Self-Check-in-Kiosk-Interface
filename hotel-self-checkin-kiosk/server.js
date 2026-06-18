@@ -24,6 +24,10 @@ function addHistory(guest, message) {
   guest.history.unshift(`${new Date().toLocaleString("en-IN")}: ${message}`);
 }
 
+app.get("/", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "Hotel Self Check-in API" });
 });
